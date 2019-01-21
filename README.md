@@ -1,1 +1,1 @@
-# java-courses
+# java courses repository
