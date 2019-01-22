@@ -5,24 +5,137 @@ import java.util.Scanner;
  */
 public class InteractRunner
 {
-    public static void main(String[] args)
+    private int first;       // first argument for calculation.
+    private int second;      // second argument for calculation.
+    private String operator; // arithmetic operation
+    private final Scanner reader;  // reader for getting interaction arguments.
+    private final Calculator calc; // processor for performing arithmetic operations.
+    
+    /**
+     * Constructor for a user interaction. 
+     * Initialize instance variables.
+     */
+    InteractRunner(Scanner reader)
     {
+        first = 0;
+        second = 0;
+        operator = null;
+        this.reader = reader;
+        calc = new Calculator();
+    }
+    
+    public static void main(String[] args)
+    {        
+        // read input from console
         try (Scanner reader = new Scanner(System.in))
         {
-            Calculator calc = new Calculator();
+            // create interaction with a user.
+            var interaction = new InteractRunner(reader);
+            
             String exit = "no";
             while (!exit.equals("yes"))
             {
-                System.out.print("Enter first arg: ");
-                int first = reader.nextInt();
-                System.out.print("Enter second arg: ");
-                int second = reader.nextInt();
-                calc.add(first, second);
-                System.out.println("Result: " + calc.getResult());
-                calc.cleanResult();
+                // Set operation to perform
+                String op = interaction.setOperator();
+                
+                // Set arguments only if user asked for an arithmetic operation
+                if (!op.equals("clean"))
+                    interaction.setOperands();
+                    
+                // perform the calculation.
+                int res = interaction.calculate();
+                System.out.println("Result: " + res);
+                
                 System.out.println("Exit: yes/no");
                 exit = reader.next();
             }
         }
     }
+    
+    /**
+     * Set arithmetic operation to perform.
+     */
+    public String setOperator()
+    {
+        System.out.print("Enter operation (clean, *, /, +, - or ^): ");
+        operator = reader.next();
+        return operator;
+    }
+    
+    /**
+     * Set operands for operation execution.
+     * Operands are taken from user via console.
+     */
+    public void setOperands()
+    {
+        // set first and second arguments.
+        first = setOperand("Enter first arg (or 'reuse' to reuse previous result): ");
+        second = setOperand("Enter second arg (or 'reuse' to reuse previous result): ");
+    } 
+
+    /**
+     * Peform input operation on interaction arguments.
+     * @return Result of the calculation.
+     */ 
+     public int calculate()
+     {
+        // check possible options for an operation.
+        switch (operator)
+        {
+            case "+": 
+                calc.add(first, second);
+                break;
+                            
+            case "-": 
+                calc.subtract(first, second);
+                break;    
+
+            case "*": 
+                calc.multiply(first, second);
+                break;  
+
+            case "/": 
+                calc.divide(first, second);
+                break;  
+
+            case "^": 
+                calc.power(first, second);
+                break;                          
+                            
+            case "clean":
+                calc.cleanResult();
+                break;
+                        
+            default: 
+                System.out.println("Unknown operation: " + operator);
+                calc.cleanResult();
+                break;
+        }
+        
+        // return calculation result.
+        return calc.getResult();
+     } // end of calculate
+    
+    /**
+     * Set calculation argument from a user.
+     * @param msg Message for retrieving the argument.
+     */
+    private int setOperand(String msg)
+    {
+        int arg = 0;
+        String tmp = null;
+        
+        System.out.print(msg);
+        
+        tmp = reader.next();
+        
+        // If user enters 'reuse' then take the latest calculation result
+        if (tmp.equals("reuse") || tmp.equals("'reuse'"))
+            arg = calc.getResult();
+        else
+            arg = Integer.valueOf(tmp);
+        
+        return arg;
+    } // end of getOperand
+    
 }
