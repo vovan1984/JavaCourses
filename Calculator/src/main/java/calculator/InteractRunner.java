@@ -1,3 +1,5 @@
+package calculator;
+
 import java.util.Scanner;
 
 /**
@@ -15,7 +17,7 @@ public class InteractRunner
      * Constructor for a user interaction. 
      * Initialize instance variables.
      */
-    InteractRunner(Scanner reader)
+    private InteractRunner(Scanner reader)
     {
         first = 0;
         second = 0;
@@ -55,7 +57,7 @@ public class InteractRunner
     /**
      * Set arithmetic operation to perform.
      */
-    public String setOperator()
+    private String setOperator()
     {
         System.out.print("Enter operation (clean, *, /, +, - or ^): ");
         operator = reader.next();
@@ -66,18 +68,42 @@ public class InteractRunner
      * Set operands for operation execution.
      * Operands are taken from user via console.
      */
-    public void setOperands()
+    private void setOperands()
     {
         // set first and second arguments.
         first = setOperand("Enter first arg (or 'reuse' to reuse previous result): ");
         second = setOperand("Enter second arg (or 'reuse' to reuse previous result): ");
-    } 
+    }
+
+
+    /**
+     * Set calculation argument from a user.
+     * @param msg Message for retrieving the argument.
+     */
+    private int setOperand(String msg)
+    {
+        int arg = 0;
+        String tmp = null;
+
+        System.out.print(msg);
+
+        tmp = reader.next();
+
+        // If user enters 'reuse' then take the latest calculation result
+        if (tmp.equals("reuse") || tmp.equals("'reuse'"))
+            arg = calc.getResult();
+        else
+            arg = Integer.valueOf(tmp);
+
+        return arg;
+    } // end of setOperand
+
 
     /**
      * Peform input operation on interaction arguments.
      * @return Result of the calculation.
      */ 
-     public int calculate()
+     private int calculate()
      {
         // check possible options for an operation.
         switch (operator)
@@ -115,27 +141,4 @@ public class InteractRunner
         // return calculation result.
         return calc.getResult();
      } // end of calculate
-    
-    /**
-     * Set calculation argument from a user.
-     * @param msg Message for retrieving the argument.
-     */
-    private int setOperand(String msg)
-    {
-        int arg = 0;
-        String tmp = null;
-        
-        System.out.print(msg);
-        
-        tmp = reader.next();
-        
-        // If user enters 'reuse' then take the latest calculation result
-        if (tmp.equals("reuse") || tmp.equals("'reuse'"))
-            arg = calc.getResult();
-        else
-            arg = Integer.valueOf(tmp);
-        
-        return arg;
-    } // end of getOperand
-    
 }
