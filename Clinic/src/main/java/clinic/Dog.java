@@ -1,3 +1,5 @@
+package clinic;
+
 /**
  * Implementation of the dog.
  * @since 1.0

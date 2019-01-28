@@ -1,3 +1,5 @@
+package clinic;
+
 /**
  * Kotopes implementation.
  * @since 1.0

@@ -1,3 +1,5 @@
+package clinic;
+
 /**
  * Base class representing an animal.
  * @since 1.0

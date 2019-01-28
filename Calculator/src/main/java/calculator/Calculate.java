@@ -4,6 +4,11 @@ public class Calculate
 {  
     public static void main(String[] args)
     {
+        if (args.length != 2)
+        {
+            System.out.println("Please enter 2 arguments!");
+            System.exit(1);
+        }
         System.out.println("Calculate...");
         long first = Long.valueOf(args[0]);
         long second = Long.valueOf(args[1]);
@@ -13,6 +18,15 @@ public class Calculate
         System.out.println(first + " * " + second + " = " + multiply(first, second));
         System.out.println(first + "/" + second + " = " + divide(first, second));
         System.out.println(first + "^" + second + " = " + power(first, second));
+        
+        double firstD = first;
+        double secondD = second;
+        
+        System.out.println(firstD + " + " + secondD + " = " + sum(firstD, secondD));
+        System.out.println(firstD + " - " + secondD + " = " + minus(firstD, secondD));
+        System.out.println(firstD + " * " + secondD + " = " + multiply(firstD, secondD));
+        System.out.println(firstD + "/" + secondD + " = " + divide(firstD, secondD));
+        System.out.println(firstD + "^" + secondD + " = " + power(firstD, secondD));
     }
     
     private static long sum(long first, long second)

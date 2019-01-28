@@ -1,3 +1,5 @@
+package clinic;
+
 import java.util.LinkedList;
 
 /**

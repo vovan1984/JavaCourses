@@ -1,3 +1,4 @@
+package clinic; 
 /**
  * Implementation of the cat. It can say "Miauuu!" and catch mice.
  * @since 1.0

@@ -1,3 +1,5 @@
+package clinic;
+
 /**
  * This interface describes actions of pet.
  * @since 1.0

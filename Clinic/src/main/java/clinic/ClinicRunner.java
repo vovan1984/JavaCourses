@@ -1,3 +1,5 @@
+package clinic;
+
 /**
  * Implementation of Clinic's work.
  * @since 1.0

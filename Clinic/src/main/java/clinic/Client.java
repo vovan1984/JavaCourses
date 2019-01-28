@@ -1,3 +1,5 @@
+package clinic;
+
 /**
  * Class for keeping client's info.
  * @since 1.0
