@@ -29,52 +29,52 @@ public class Calculate
         System.out.println(firstD + "^" + secondD + " = " + power(firstD, secondD));
     }
     
-    private static long sum(long first, long second)
+    public static long sum(long first, long second)
     {
         return first + second;
     }    
     
-    private static double sum(double first, double second)
+    public static double sum(double first, double second)
     {
         return first + second;
     }
     
-    private static long minus(long first, long second)
+    public static long minus(long first, long second)
     {
         return first - second;
     }    
     
-    private static double minus(double first, double second)
+    public static double minus(double first, double second)
     {
         return first - second;
     }  
 
-    private static long multiply(long first, long second)
+    public static long multiply(long first, long second)
     {
         return first * second;
     }    
     
-    private static double multiply(double first, double second)
+    public static double multiply(double first, double second)
     {
         return first * second;
     }   
 
-    private static long divide(long first, long second)
+    public static long divide(long first, long second)
     {
         return first / second;
     }    
     
-    private static double divide(double first, double second)
+    public static double divide(double first, double second)
     {
         return first / second;
     }    
     
-    private static long power(long first, long second)
+    public static long power(long first, long second)
     {
         return (long)Math.pow(first, second);
     }    
     
-    private static double power(double first, double second)
+    public static double power(double first, double second)
     {
         return Math.pow(first, second);
     }
