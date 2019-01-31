@@ -15,5 +15,5 @@ public interface Pet
     /**
      * Set name of the pet.
      */
-    public void setName(String newName);
+    public void changeName(String newName);
 }

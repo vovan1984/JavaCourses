@@ -41,8 +41,8 @@ public class Dog implements Pet
      * (@inheritDoc)
      */
     @Override
-    public void setName(String newName)
+    public void changeName(String newName)
     {
-        this.pet.setName(newName);
+        this.pet.changeName(newName);
     }    
 }

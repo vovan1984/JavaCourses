@@ -35,7 +35,7 @@ public class CatDog implements Pet
     /**
      * (@inheritDoc)
      */
-    public void setName(String newName)
+    public void changeName(String newName)
     {
         System.out.println("Can't change name to " + newName + ". Operation not supported!");
     }

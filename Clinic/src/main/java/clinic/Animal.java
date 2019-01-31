@@ -41,7 +41,7 @@ public class Animal implements Pet
      * Update name of the pet.
      */
     @Override
-    public void setName(String newName)
+    public void changeName(String newName)
     {
         this.name = newName;
     }
