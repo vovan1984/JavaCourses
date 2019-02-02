@@ -41,6 +41,16 @@ public class CalculatorTest
         calc.divide();
     }
     
+    /**
+     * Validate exception during division by zero.
+     * @throws CalculatorException
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void divideByZero() throws CalculatorException
+    {
+        calc.divide(1,0);
+    }
+    
     @Test
     public void power()
     {

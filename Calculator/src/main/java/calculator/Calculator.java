@@ -60,7 +60,11 @@ public class Calculator
         {
             this.result = div[0];
             for (int i=1; i<div.length; i++)
+            {
+                if (div[i] == 0)
+                    throw new IllegalArgumentException("Attempt to divide by zero!");
                 this.result /= div[i];
+            }
         }
         else
             throw new CalculatorException("Please provide arguments for division!");
