@@ -29,12 +29,18 @@ public class CalculatorTest
     }
 
     @Test
-    public void divide()
+    public void divide() throws CalculatorException
     {
         calc.divide(9, 1);
         assertEquals(9, calc.getResult());
     }
 
+    @Test(expected = CalculatorException.class)
+    public void divideNoArgs() throws CalculatorException
+    {
+        calc.divide();
+    }
+    
     @Test
     public void power()
     {

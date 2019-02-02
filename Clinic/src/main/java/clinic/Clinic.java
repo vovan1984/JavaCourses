@@ -57,6 +57,11 @@ public class Clinic
         }
     }
      
+    /**
+     * Find all clients with a given pet name.
+     * @param petName Name of a pet.
+     * @return Array of clients having a pet with that name.
+     */
     public Client[] findClientsByPetName(String petName)
     {
         LinkedList<Client> c = new LinkedList<>();
@@ -71,6 +76,11 @@ public class Clinic
         return c.toArray(new Client[0]);
     }
      
+    /**
+     * Find all pets of a given client.
+     * @param clientName Name of the client.
+     * @return Array of pets belonging to a client.
+     */
     public Pet[] findPetsByClientName(String clientName)
     {
         LinkedList<Pet> p = new LinkedList<>();

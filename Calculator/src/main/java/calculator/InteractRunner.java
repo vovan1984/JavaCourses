@@ -51,6 +51,10 @@ public class InteractRunner
                 System.out.println("Exit: yes/no");
                 exit = reader.next();
             }
+        } catch (CalculatorException e)
+        {
+            e.printStackTrace();
+            return;
         }
     }
     
@@ -102,8 +106,9 @@ public class InteractRunner
     /**
      * Peform input operation on interaction arguments.
      * @return Result of the calculation.
+     * @throws CalculatorException 
      */ 
-     private int calculate()
+     private int calculate() throws CalculatorException
      {
         // check possible options for an operation.
         switch (operator)

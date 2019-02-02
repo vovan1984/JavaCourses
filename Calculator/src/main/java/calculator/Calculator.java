@@ -52,11 +52,18 @@ public class Calculator
      * Divide arguments.
      * @param dividend The number being divided.
      * @param divisor The number to be divided by.
+     * @throws CalculatorException 
      */
-    public void divide(int dividend, int divisor)
+    public void divide(int ... div) throws CalculatorException
     {
-        this.result = dividend / divisor;
-
+        if (div.length > 0)
+        {
+            this.result = div[0];
+            for (int i=1; i<div.length; i++)
+                this.result /= div[i];
+        }
+        else
+            throw new CalculatorException("Please provide arguments for division!");
     }   
 
     /**

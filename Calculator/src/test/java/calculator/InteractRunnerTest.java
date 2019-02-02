@@ -25,7 +25,7 @@ public class InteractRunnerTest {
 
         // simulate expected output
         String expOutput =
-                buildOutput(
+                String.format("%s%n%s%n%s%n%s%n",
                         "Enter operation (clean, *, /, +, - or ^): " +
                         "Enter first arg (or 'reuse' to reuse previous result): " +
                         "Enter second arg (or 'reuse' to reuse previous result): " +
@@ -65,22 +65,5 @@ public class InteractRunnerTest {
 
         ByteArrayInputStream b = new ByteArrayInputStream(outBytes.toByteArray());
         return b;
-    }
-
-    /**
-     * Build expected output
-     * @param args Lines expected to be printed by the tested method.
-     * @return Byte output stream buffering expected output.
-     */
-    private String buildOutput(String ... args)
-    {
-        ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
-        var outPs = new PrintStream(outBytes);
-        for (String line : args)
-        {
-            outPs.println(line);
-        }
-
-        return outBytes.toString();
     }
 }
