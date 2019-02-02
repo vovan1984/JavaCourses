@@ -19,42 +19,79 @@ public class Clinic
     /**
      * Add client to given position.
      * @param Index in array to add client to.
+     * @throws ClinicException 
      */
-    public void addClient(int position, Client client)
+    public void addClient(int position, Client client) throws ClinicException
     {
         if (position < 0 || position >= clients.length)
-            System.out.println("Can't add client to position " + position);
+            throw new ClinicException("Can't add client to position " + position);
+        else if (clients[position] != null)
+            throw new ClinicException("Client already exists at postition " + position + 
+                    "! Please provide different index, or delete existing client first!"); 
         else
            this.clients[position] = client;
     }
     
     /**
+     * Remove client at given position.
+     * @throws ClinicException 
+     */
+    public void removeClient(int position) throws ClinicException
+    {
+        if (position < 0 || position >= clients.length)
+            throw new ClinicException("Can't remove client from position " + position);
+        else if (clients[position] == null)
+            throw new ClinicException("Client doesn't exists at postition " + position); 
+        else 
+           this.clients[position] = null;
+    }
+    
+    /**
      * Remove given client.
      * @param name Name of the client to remove
+     * @throws ClinicException 
      */
-    public void removeClient(String name)
+    public void removeClient(String name) throws ClinicException
     {
-        // search for all occurences of name, and remove corresponding clients.
+        boolean found = false;
+        
+        // search for all occurrences of name, and remove corresponding clients.
         for (int i = 0; i < clients.length; i++)
         {
             if (clients[i] != null && clients[i].getName().equals(name))
+            {
                 clients[i] = null;
+                found = true;
+            }
         }
+        
+        if (!found)
+            throw new ClinicException("Client " + name + " doesn't exist!");
     }
 
     /**
      * Remove given pet.
      * @param name Name of the pet to remove
+     * @throws ClinicException 
      */
-    public void removePet(String petName)
+    public void removePet(String petName) throws ClinicException
     {
-        // search for all occurences of name, and remove corresponding pets.
+        boolean found = false;
+        
+        // search for all occurrences of name, and remove corresponding pets.
         for (int i = 0; i < clients.length; i++)
         {
             if (clients[i] != null && clients[i].getPet() != null
                 && clients[i].getPet().getName().equals(petName))
+            {
                 clients[i] = null;
+                found = true;
+            }
         }
+        
+        // if pet doesn't exist, then throw an exception.
+        if (!found)
+            throw new ClinicException("Pet " + petName + " doesn't exist!");
     }
      
     /**
