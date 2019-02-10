@@ -1,5 +1,8 @@
 package clinic;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Class for keeping client's info.
  * @since 1.0
@@ -7,12 +10,27 @@ package clinic;
 public class Client
 {
     private String name;
-    private final Pet pet;
+    private List<Pet> pets; // client's pets
     
-    Client(String name, Pet pet)
+    /**
+     * Constructor of client with no pet yet.
+     * @param name Name of the client.
+     */
+    Client(String name)
     {
         this.name = name;
-        this.pet = pet;
+        this.pets = new LinkedList<>();
+    }
+    
+    /**
+     * Construct of client with given pet.
+     * @param name Name of client.
+     * @param pet Instance of client's pet.
+     */
+    Client(String name, Pet pet)
+    {
+        this(name);
+        this.pets.add(pet);
     }
     
     /**
@@ -30,12 +48,29 @@ public class Client
     {
         this.name = newName;
     }
+    
+    /**
+     * Add pet to a client.
+     */
+    public void addPet(Pet newPet)
+    {
+        this.pets.add(newPet);
+    }
  
     /**
-     * Retrieve client's pet
+     * Retrieve client's pets
      */
-    public Pet getPet()
+    public List<Pet> getPets()
     {
-        return this.pet;
-    }    
+        return this.pets;
+    }  
+    
+    /**
+     * Represent client in form of String.
+     */
+    @Override
+    public String toString()
+    {
+        return name;
+    }
 }

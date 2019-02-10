@@ -1,6 +1,9 @@
 package clinic;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Base class to contain clients.
@@ -9,125 +12,141 @@ import java.util.LinkedList;
 public class Clinic
 {
     // list of clients
-    private final Client[] clients;
-    
+    private final List<Client> clients;
+
+    /**
+     * Create clinic with unknown number of clients.
+     */
+    public Clinic()
+    {
+        this.clients = new ArrayList<>();
+    }
+
+    /**
+     * Create clinic with expected number of clients.
+     * @param size Expected number of clients.
+     */
     public Clinic(int size)
     {
-        this.clients = new Client[size];
+        this.clients = new ArrayList<>(size);
     }
-    
+
     /**
-     * Add client to given position.
+     * Add new client to a clinic.
      * @param Index in array to add client to.
      * @throws ClinicException 
      */
-    public void addClient(int position, Client client) throws ClinicException
+    public void addClient(Client client) throws ClinicException
     {
-        if (position < 0 || position >= clients.length)
-            throw new ClinicException("Can't add client to position " + position);
-        else if (clients[position] != null)
-            throw new ClinicException("Client already exists at postition " + position + 
-                    "! Please provide different index, or delete existing client first!"); 
-        else
-           this.clients[position] = client;
+        clients.add(client);
     }
-    
+
     /**
-     * Remove client at given position.
-     * @throws ClinicException 
-     */
-    public void removeClient(int position) throws ClinicException
-    {
-        if (position < 0 || position >= clients.length)
-            throw new ClinicException("Can't remove client from position " + position);
-        else if (clients[position] == null)
-            throw new ClinicException("Client doesn't exists at postition " + position); 
-        else 
-           this.clients[position] = null;
-    }
-    
-    /**
-     * Remove given client.
+     * Remove client by client's name.
      * @param name Name of the client to remove
      * @throws ClinicException 
      */
     public void removeClient(String name) throws ClinicException
     {
         boolean found = false;
-        
-        // search for all occurrences of name, and remove corresponding clients.
-        for (int i = 0; i < clients.length; i++)
+
+        Iterator<Client> it = clients.iterator();
+
+        while (it.hasNext())
         {
-            if (clients[i] != null && clients[i].getName().equals(name))
+            Client c = it.next();
+            if (c.getName().equals(name))
             {
-                clients[i] = null;
+                it.remove();
                 found = true;
             }
         }
-        
+
         if (!found)
             throw new ClinicException("Client " + name + " doesn't exist!");
     }
 
     /**
-     * Remove given pet.
+     * Remove pets with given name.
      * @param name Name of the pet to remove
      * @throws ClinicException 
      */
-    public void removePet(String petName) throws ClinicException
+    public Pet removePet(String petName) throws ClinicException
     {
         boolean found = false;
-        
-        // search for all occurrences of name, and remove corresponding pets.
-        for (int i = 0; i < clients.length; i++)
+        Pet removedPet = null;
+
+        Iterator<Client> it = clients.iterator();
+
+        while (it.hasNext())
         {
-            if (clients[i] != null && clients[i].getPet() != null
-                && clients[i].getPet().getName().equals(petName))
+            Client c = it.next();
+
+            Iterator<Pet> petIt = c.getPets().iterator();
+
+            while (petIt.hasNext())
             {
-                clients[i] = null;
-                found = true;
+                Pet curPet = petIt.next();
+                if (curPet.getName().equals(petName))
+                {
+                    petIt.remove();
+                    removedPet = curPet;
+                    found = true;
+                }
             }
         }
-        
+
         // if pet doesn't exist, then throw an exception.
         if (!found)
             throw new ClinicException("Pet " + petName + " doesn't exist!");
+
+        return removedPet;
     }
-     
+
     /**
      * Find all clients with a given pet name.
      * @param petName Name of a pet.
      * @return Array of clients having a pet with that name.
      */
-    public Client[] findClientsByPetName(String petName)
+    public Client[] getClientsByPetName(String petName)
     {
         LinkedList<Client> c = new LinkedList<>();
-        
-        for (int i = 0; i < clients.length; i++)
+
+        for (Client client : clients)
         {
-            if (clients[i] != null && clients[i].getPet() != null 
-                   && clients[i].getPet().getName().equals(petName))
-                c.add(clients[i]);
+            List<Pet> petsOfClient = client.getPets();
+
+            for (Pet pet : petsOfClient)
+            {
+                if (pet.getName().equals(petName))
+                    c.add(client);
+            }
         }
-        
+
         return c.toArray(new Client[0]);
     }
-     
-    /**
-     * Find all pets of a given client.
-     * @param clientName Name of the client.
-     * @return Array of pets belonging to a client.
-     */
-    public Pet[] findPetsByClientName(String clientName)
-    {
-        LinkedList<Pet> p = new LinkedList<>();
 
-        for (int i = 0; i < clients.length; i++)
-        {
-            if (clients[i] != null && clients[i].getName().equals(clientName))
-                p.add(clients[i].getPet());
-        }
-        
-        return new Pet[]{};
+    /**
+     * Get all clients of the Pet Clinic in an array.
+     */
+    public Client[] getClients()
+    {
+        return clients.toArray(new Client[] {});
+    }
+
+    /**
+     * Find all clients with a given name.
+     * @param clientName Name of the client.
+     * @return Array of clients.
+     */
+    public Client[] getClientsByClientName(String clientName)
+    {
+        LinkedList<Client> c = new LinkedList<>();
+
+        for (Client client : clients)
+            if (client.getName().equals(clientName))
+                c.add(client);
+
+        return c.toArray(new Client[0]);
     }
 }
