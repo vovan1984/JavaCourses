@@ -5,6 +5,6 @@ bin
 .settings
 .classpath
 .project
-build
+*/build/*
 build.properties
 
