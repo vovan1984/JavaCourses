@@ -6,6 +6,6 @@ bin
 .classpath
 .project
 */build/*
-*/lib/*
+*jar
 build.properties
 
