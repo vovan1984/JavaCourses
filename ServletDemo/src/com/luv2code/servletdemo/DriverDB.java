@@ -17,12 +17,13 @@ public class DriverDB
         // 1.Get connection to the database
         try
         {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             myCon = DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (SQLException e)
+        } catch (Exception e)
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
+        } 
     }
     
     public ResultSet executeQuery(String query) throws SQLException
